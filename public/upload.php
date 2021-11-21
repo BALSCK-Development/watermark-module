@@ -27,10 +27,10 @@ if (file_exists($target_file)) {
 }
 
 // Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
+/*if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
-}
+}*/
 
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -51,5 +51,5 @@ if ($uploadOk == 0) {
 }
 
 //TODO valid form via $_GET , $_POST or JS ? Idk
-addWatermark($_FILES["fileToUpload"]["name"],$timestamp, $target_file,'watermark.jpg');
-header('Location: http://54.93.245.29/');
+addWatermark($_FILES["fileToUpload"]["name"],$timestamp, $target_file,'watermark.png',$imageFileType);
+//header('Location: https://balsk-development.site/blochin/zadanie7/public/');

@@ -19,7 +19,7 @@
         foreach ($images as $image){
             if($image != "." && $image != ".."){
                 echo ' <div >
-                            <a href="http://54.93.245.29/watermarked/'.$image.'"><img style="object-fit: cover" width="500px" height="500px" src='."watermarked/".$image.' class="img-thumbnail" alt="IDK"></a>
+                            <a href="https://balsk-development.site/blochin/zadanie7/public/watermarked/'.$image.'"><img style="object-fit: cover" width="500px" height="500px" src='."watermarked/".$image.' class="img-thumbnail" alt="IDK"></a>
                        </div>';
             }
         }
