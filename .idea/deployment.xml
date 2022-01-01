@@ -2,10 +2,17 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="School-Dev" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
+      <paths name="SXP-dev">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="School-Dev">
         <serverdata>
           <mappings>
-            <mapping deploy="/zadanie7" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/watermarks" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

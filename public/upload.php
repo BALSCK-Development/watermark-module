@@ -49,7 +49,7 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
+$nameFile = $_FILES["fileToUpload"]["name"];
 
-//TODO valid form via $_GET , $_POST or JS ? Idk
-addWatermark($_FILES["fileToUpload"]["name"],$timestamp, $target_file,'watermark.png',$imageFileType);
-//header('Location: https://balsk-development.site/blochin/zadanie7/public/');
+addWatermark($nameFile,$timestamp, $target_file,'watermark.png',$imageFileType);
+header('Location: https://www.blochin.balsk-development.site/thumbnails.php');

@@ -2,26 +2,26 @@
 // php-gd, jped lib libraries are needed, libgd if ubuntu ? (if u have arch jped-turbo xd)
 // enable in php.ini gd extension
 
-function addWatermark($nameFile,$timestamp, $imageDir, $watermarkDir,$imageFileType)
+function addWatermark($nameFile, $timestamp, $target_file, $watermarkDir, $imageFileType)
 {
     $image = '';
 
     if($imageFileType == 'png')
     {
-        $image = imagecreatefrompng($imageDir);
+        $image = imagecreatefrompng($target_file);
         $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
-        // TODO we need transparent background here
-        // TODO dont create white background. Background can be image where we want paste watermark
         imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
         imagealphablending($bg, TRUE);
         imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
         imagedestroy($image);
-        $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file
-        imagejpeg($bg, $imageDir.'.jpg', $quality);
+        $quality = 100;
+        imagejpeg($bg, $target_file.'.jpg', $quality);
         imagedestroy($bg);
-        $image = imagecreatefromjpeg($imageDir.'.jpg');
-    }else{
-        $image = imagecreatefromjpeg($imageDir);
+        $image = imagecreatefromjpeg($target_file.'.jpg');
+    }
+    else
+    {
+        $image = imagecreatefromjpeg($target_file);
     }
 
     $watermark = imagecreatefrompng($watermarkDir);
@@ -33,6 +33,9 @@ function addWatermark($nameFile,$timestamp, $imageDir, $watermarkDir,$imageFileT
     $watermark_height = imagesy($watermark);                                //get original watermark height
 
     $resized_watermark= imagecreatetruecolor($image_width,$image_height);
+    $background = imagecolorallocate($resized_watermark , 0, 0, 0);
+    // removing the black from the placeholder
+    imagecolortransparent($resized_watermark, $background);
 
     $scale = $image_height/$image_width;
     if($scale > 1){
