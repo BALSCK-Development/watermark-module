@@ -26,11 +26,11 @@ function addWatermark($nameFile, $timestamp, $target_file, $watermarkDir, $image
 
     $watermark = imagecreatefrompng($watermarkDir);
 
-    $image_width = imagesx($image);                                         // get image width
-    $image_height = imagesy($image);                                        //get image height
+    $image_width = imagesx($image);
+    $image_height = imagesy($image);
 
-    $watermark_width = imagesx($watermark);                                 //get original watermark width
-    $watermark_height = imagesy($watermark);                                //get original watermark height
+    $watermark_width = imagesx($watermark);
+    $watermark_height = imagesy($watermark);
 
     $resized_watermark= imagecreatetruecolor($image_width,$image_height);
     $background = imagecolorallocate($resized_watermark , 0, 0, 0);
@@ -39,23 +39,25 @@ function addWatermark($nameFile, $timestamp, $target_file, $watermarkDir, $image
 
     $scale = $image_height/$image_width;
     if($scale > 1){
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-200, $image_width-200, $watermark_width, $watermark_height);
+        // -100 doing padding. If less is needed then must divide /2 in imagecopymerge function
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-100, $image_width-100, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,0,0,0,(-($image_height-$image_width)/2)+100,$resized_watermark_width,$resized_watermark_height,30); //copy watermark to image
+        imagecopymerge($image,$resized_watermark,50,50,0,(-($image_height-$image_width)/2),$resized_watermark_width,$resized_watermark_height,30);
 
     }else if($scale < 1){
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_height-200, $image_height-200, $watermark_width, $watermark_height);
+        // -100 doing padding. If less is needed then must divide /2 in imagecopymerge function
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_height-100, $image_height-100, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,0,0,(-($image_width-$image_height)/2)+100,0,$resized_watermark_width,$resized_watermark_height,30); //copy watermark to image
+        imagecopymerge($image,$resized_watermark,50,50,(-($image_width-$image_height)/2),0,$resized_watermark_width,$resized_watermark_height,30);
 
     }else{
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-200, $image_height-200, $watermark_width, $watermark_height);
+        // -100 doing padding. If less is needed then must divide /2 in imagecopymerge function
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-100, $image_height-100, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,100,100,0,0,$resized_watermark_width,$resized_watermark_height,30);    //copy watermark to image
-
+        imagecopymerge($image,$resized_watermark,50,50,0,0,$resized_watermark_width,$resized_watermark_height,30);
     }
 
     imagejpeg($image,'watermarked/'.$timestamp."_".$nameFile.'.jpg');    //create new image with watermark
