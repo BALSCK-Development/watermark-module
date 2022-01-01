@@ -39,22 +39,22 @@ function addWatermark($nameFile, $timestamp, $target_file, $watermarkDir, $image
 
     $scale = $image_height/$image_width;
     if($scale > 1){
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width, $image_width, $watermark_width, $watermark_height);
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-200, $image_width-200, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,0,0,0,-($image_height-$image_width)/2,$resized_watermark_width,$resized_watermark_height,30);    //copy watermark to image
+        imagecopymerge($image,$resized_watermark,0,0,0,(-($image_height-$image_width)/2)+100,$resized_watermark_width,$resized_watermark_height,30); //copy watermark to image
 
     }else if($scale < 1){
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_height, $image_height, $watermark_width, $watermark_height);
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_height-200, $image_height-200, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,0,0,-($image_width-$image_height)/2,0,$resized_watermark_width,$resized_watermark_height,30);    //copy watermark to image
+        imagecopymerge($image,$resized_watermark,0,0,(-($image_width-$image_height)/2)+100,0,$resized_watermark_width,$resized_watermark_height,30); //copy watermark to image
 
     }else{
-        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width, $image_height, $watermark_width, $watermark_height);
+        imagecopyresampled($resized_watermark, $watermark, 0, 0, 0, 0, $image_width-200, $image_height-200, $watermark_width, $watermark_height);
         $resized_watermark_width = imagesx($resized_watermark);
         $resized_watermark_height = imagesy($resized_watermark);
-        imagecopymerge($image,$resized_watermark,0,0,0,0,$resized_watermark_width,$resized_watermark_height,30);    //copy watermark to image
+        imagecopymerge($image,$resized_watermark,100,100,0,0,$resized_watermark_width,$resized_watermark_height,30);    //copy watermark to image
 
     }
 
